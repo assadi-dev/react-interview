@@ -83,6 +83,8 @@ const RowMovie = () => {
               id={movie.id}
               title={movie.title}
               category={movie.category}
+              likes={movie.likes}
+              dislikes={movie.dislikes}
               className={`filter-item ${movie.category}`}
             />
           ))}

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   Movie,
-  Clear,
   ThumbUpAltOutlined,
   ThumbDownAltOutlined,
   DeleteOutlineOutlined,
@@ -10,6 +9,7 @@ import {
 import { IconButton } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { delete_movie, get_movieCategory } from "../../redux/Action";
+import { getLikesPourcent } from "../../utils/utils";
 
 const CardContainer = styled.div`
   border-radius: 5px;
@@ -111,7 +111,7 @@ const LikesMeters = styled.div`
   transition: all 0.4s ease;
   :before {
     background: blue;
-    width: 50%;
+    width: ${(props) => props.likesPourcent}%;
     position: absolute;
     top: 0;
     left: 0;
@@ -120,9 +120,10 @@ const LikesMeters = styled.div`
   }
 `;
 
-const MovieCard = ({ id, title, category, ...props }) => {
+const MovieCard = ({ id, title, category, likes, dislikes, ...props }) => {
   const dispatch = useDispatch();
   const [hover, setHover] = useState(false);
+  const [likesPourcent, setLikesPourcents] = useState(0);
 
   const handleHover = () => {
     setHover(true);
@@ -135,6 +136,11 @@ const MovieCard = ({ id, title, category, ...props }) => {
   const deleteMovie = (id) => {
     dispatch(delete_movie(id));
   };
+
+  useEffect(() => {
+    let pourcent = getLikesPourcent(likes, dislikes);
+    setLikesPourcents(pourcent);
+  }, [likes, dislikes]);
 
   return (
     <CardContainer
@@ -159,23 +165,23 @@ const MovieCard = ({ id, title, category, ...props }) => {
           </RemoveBtn>
           <Presentation>
             <Title>{title}</Title>
-            <p>{category}</p>
+            <p>{likesPourcent}</p>
 
             <LikeZone>
               <LikesBtn>
                 <IconButton aria-label="delete" color="success">
                   <ThumbUpAltOutlined />
                 </IconButton>
-                14 Likes
+                {likes}
               </LikesBtn>
               <LikesBtn>
                 <IconButton aria-label="delete" color="error">
                   <ThumbDownAltOutlined />
                 </IconButton>
-                14 DisLikes
+                {dislikes}
               </LikesBtn>
             </LikeZone>
-            <LikesMeters></LikesMeters>
+            <LikesMeters likesPourcent={likesPourcent}></LikesMeters>
           </Presentation>
         </BackCard>
       </InnerCard>
