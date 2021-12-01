@@ -43,7 +43,7 @@ const OptionElement = styled.option`
   color: #444;
 `;
 
-const RowMovie = () => {
+const RowMovie = ({ filter }) => {
   const movies = useSelector((state) => state.AllMoviesReducer);
 
   return (
@@ -86,6 +86,7 @@ const RowMovie = () => {
               likes={movie.likes}
               dislikes={movie.dislikes}
               className={`filter-item ${movie.category}`}
+              filter={filter}
             />
           ))}
         </Grid>

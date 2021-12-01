@@ -120,7 +120,15 @@ const LikesMeters = styled.div`
   }
 `;
 
-const MovieCard = ({ id, title, category, likes, dislikes, ...props }) => {
+const MovieCard = ({
+  id,
+  title,
+  category,
+  likes,
+  dislikes,
+  filter,
+  ...props
+}) => {
   const dispatch = useDispatch();
   const [hover, setHover] = useState(false);
   const [likesPourcent, setLikesPourcents] = useState(0);
@@ -135,6 +143,7 @@ const MovieCard = ({ id, title, category, likes, dislikes, ...props }) => {
 
   const deleteMovie = (id) => {
     dispatch(delete_movie(id));
+    filter("");
   };
 
   useEffect(() => {
@@ -165,7 +174,7 @@ const MovieCard = ({ id, title, category, likes, dislikes, ...props }) => {
           </RemoveBtn>
           <Presentation>
             <Title>{title}</Title>
-            <p>{likesPourcent}</p>
+            <p>{category}</p>
 
             <LikeZone>
               <LikesBtn>

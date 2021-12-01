@@ -43,8 +43,11 @@ function App() {
     let value = `.${key}`;
     if (filterKey.includes(value)) {
       return setFilterKey(filterKey.filter((v) => v !== value));
+    } else if (category.includes(key)) {
+      return setFilterKey([...filterKey, value]);
+    } else {
+      return setFilterKey([]);
     }
-    setFilterKey([...filterKey, value]);
   };
 
   return (
@@ -56,7 +59,7 @@ function App() {
           categories={category}
           filter={handleFilterKeyChange}
         />
-        <RowMovie />
+        <RowMovie filter={handleFilterKeyChange} />
       </main>
     </div>
   );
