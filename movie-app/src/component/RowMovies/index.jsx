@@ -31,20 +31,25 @@ const Grid = styled.div`
 const NbElement = styled.select`
   width: 75px;
   padding: 1rem;
-  background: rgba(36, 35, 36, 0);
+  background: rgba(36, 35, 36);
   border: none;
   color: #fff;
   font-size: 1.2rem;
   font-weight: bold;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    width: 50px;
+    background: rgba(36, 36, 35, 0.3);
+  }
 `;
 
 const OptionElement = styled.option`
   color: #444;
 `;
 
-const RowMovie = ({ filter }) => {
+const RowMovie = () => {
   const movieState = useSelector((state) => state.AllMoviesReducer);
   const selectedCategory = useSelector((state) => state.CategoriesReducer);
   const dispatch = useDispatch();
@@ -180,7 +185,6 @@ const RowMovie = ({ filter }) => {
               category={movie.category}
               likes={movie.likes}
               dislikes={movie.dislikes}
-              filter={filter}
             />
           ))}
         </Grid>

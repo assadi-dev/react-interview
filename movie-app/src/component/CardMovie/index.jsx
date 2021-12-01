@@ -1,125 +1,34 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import {
   Movie,
   ThumbUpAltOutlined,
+  ThumbUpAlt,
+  ThumbDownAlt,
   ThumbDownAltOutlined,
   DeleteOutlineOutlined,
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { delete_movie, get_movieCategory } from "../../redux/Action";
+import {
+  add_likes,
+  delete_movie,
+  update_dislikes,
+  update_likes,
+} from "../../redux/Action";
 import { getLikesPourcent } from "../../utils/utils";
-import { delete_categories } from "../../redux/CategorieAction";
-
-const CardContainer = styled.div`
-  border-radius: 5px;
-  width: 13rem;
-  margin: 0.3rem;
-  background: transparent;
-  height: 320px;
-  color: rgba(255, 255, 255, 0.5);
-  overflow: hidden;
-  position: relative;
-  perspective: 1000px;
-`;
-
-const InnerCard = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  transform: ${(props) => props.hover && "rotateY(-180deg)"};
-`;
-
-const FaceCard = styled.div`
-  backface-visibility: hidden;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
-
-const BackCard = styled.div`
-  background-color: rgba(36, 36, 36, 1);
-  color: white;
-  transform: rotateY(180deg);
-  backface-visibility: hidden;
-  width: 100%;
-  height: 100%;
-`;
-
-const Overlay = styled.div`
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background: rgba(100, 36, 36, 0.5);
-`;
-
-const Presentation = styled.div`
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  padding: 0.5rem;
-`;
-
-const Title = styled.div`
-  font-weight: bold;
-  font-size: 1.2rem;
-`;
-
-const LikeZone = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
-  font-size: 0.8rem;
-`;
-
-const RemoveBtn = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  z-index: 10;
-  text-align: center;
-  background: rgba(255, 255, 255, 0);
-  border-radius: 50px;
-  display: flex;
-  justify-items: center;
-  justify-content: center;
-`;
-
-const LikesBtn = styled.span``;
-
-const LikesMeters = styled.div`
-  background: #fff;
-  height: 3px;
-  width: 100%;
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative;
-  transition: all 0.4s ease;
-  :before {
-    background: blue;
-    width: ${(props) => props.likesPourcent}%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: all 0.4s ease;
-    content: "&";
-  }
-`;
+import {
+  BackCard,
+  CardContainer,
+  FaceCard,
+  InnerCard,
+  LikesBtn,
+  LikesMeters,
+  LikeZone,
+  Overlay,
+  Presentation,
+  RemoveBtn,
+  Title,
+} from "./styled";
 
 const MovieCard = ({
   id,
@@ -133,6 +42,11 @@ const MovieCard = ({
   const dispatch = useDispatch();
   const [hover, setHover] = useState(false);
   const [likesPourcent, setLikesPourcents] = useState(0);
+  const [btnState, setBtnState] = useState({
+    likes: false,
+    dislikes: false,
+    value: 0,
+  });
 
   const handleHover = () => {
     setHover(true);
@@ -146,10 +60,38 @@ const MovieCard = ({
     dispatch(delete_movie(id));
   };
 
+  const handleLike = () => {
+    if (!btnState.likes && !btnState.dislikes) {
+      setBtnState({ ...btnState, likes: true });
+      dispatch(update_likes({ id: id, likes: likes + 1 }));
+    } else if (btnState.likes && !btnState.dislikes) {
+      setBtnState({ ...btnState, likes: false });
+      dispatch(update_likes({ id: id, likes: likes - 1 }));
+    } else if (!btnState.likes && btnState.dislikes) {
+      setBtnState({ ...btnState, likes: true, dislikes: false });
+      dispatch(update_likes({ id: id, likes: likes + 1 }));
+      dispatch(update_dislikes({ id: id, dislikes: dislikes - 1 }));
+    }
+  };
+
+  const handleDisLike = () => {
+    if (!btnState.dislikes && !btnState.likes) {
+      setBtnState({ ...btnState, dislikes: true });
+      dispatch(update_dislikes({ id: id, dislikes: dislikes + 1 }));
+    } else if (btnState.dislikes && !btnState.likes) {
+      setBtnState({ ...btnState, dislikes: false });
+      dispatch(update_dislikes({ id: id, dislikes: dislikes - 1 }));
+    } else if (btnState.likes && !btnState.dislikes) {
+      setBtnState({ ...btnState, likes: false, dislikes: true });
+      dispatch(update_likes({ id: id, likes: likes - 1 }));
+      dispatch(update_dislikes({ id: id, dislikes: dislikes + 1 }));
+    }
+  };
+
   useEffect(() => {
     let pourcent = getLikesPourcent(likes, dislikes);
     setLikesPourcents(pourcent);
-  }, [likes, dislikes]);
+  }, [likes, dislikes, btnState.likes, btnState.dislikes]);
 
   return (
     <CardContainer
@@ -177,15 +119,19 @@ const MovieCard = ({
             <p>{category}</p>
 
             <LikeZone>
-              <LikesBtn>
-                <IconButton aria-label="delete" color="success">
-                  <ThumbUpAltOutlined />
+              <LikesBtn onClick={handleLike}>
+                <IconButton aria-label="Like" color="success">
+                  {btnState.likes ? <ThumbUpAlt /> : <ThumbUpAltOutlined />}
                 </IconButton>
                 {likes}
               </LikesBtn>
-              <LikesBtn>
-                <IconButton aria-label="delete" color="error">
-                  <ThumbDownAltOutlined />
+              <LikesBtn onClick={handleDisLike}>
+                <IconButton aria-label="Dislike" color="error">
+                  {btnState.dislikes ? (
+                    <ThumbDownAlt />
+                  ) : (
+                    <ThumbDownAltOutlined />
+                  )}
                 </IconButton>
                 {dislikes}
               </LikesBtn>
