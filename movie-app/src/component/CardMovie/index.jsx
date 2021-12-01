@@ -143,7 +143,7 @@ const MovieCard = ({
 
   const deleteMovie = (id) => {
     dispatch(delete_movie(id));
-    filter("");
+    filter([]);
   };
 
   useEffect(() => {

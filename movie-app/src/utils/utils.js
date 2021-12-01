@@ -1,10 +1,7 @@
-export const pagination = (totalItems, currentPage, pageSize, maxPage) => {
-    let totalPages = Math.ceil(totalItems / pageSize);
-    if (currentPage < 1) {
-        currentPage = 1;
-    } else if (currentPage > totalPages) {
-        currentPage = totalPages;
-    }
+export const totalPage = (totalItems, elements, array) => {
+    const total = parseInt(totalItems);
+    const nb_elements = parseInt(elements);
+    return Math.ceil(total / nb_elements);
 };
 
 export const getLikesPourcent = (likes, dislikes) => {

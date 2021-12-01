@@ -9,11 +9,12 @@ import {
 import CardMovie from "../CardMovie";
 import styled from "styled-components";
 import InfoMovie from "./InfoMovie";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   ArrowBackIosRounded,
   ArrowForwardIosRounded,
 } from "@mui/icons-material";
+import { edit_elements_pages } from "../../redux/ElementsPageAction";
 
 const Grid = styled.div`
   display: grid;
@@ -44,7 +45,51 @@ const OptionElement = styled.option`
 `;
 
 const RowMovie = ({ filter }) => {
-  const movies = useSelector((state) => state.AllMoviesReducer);
+  const movieState = useSelector((state) => state.AllMoviesReducer);
+  const dispatch = useDispatch();
+  const [nbOfItems, setNbOfItems] = useState(4);
+
+  const [movies, setMovies] = useState([]);
+  const [page, setPages] = useState({
+    start: 0,
+    end: nbOfItems,
+  });
+
+  const handleSelectNbElement = (e) => {
+    let value = parseInt(e.target.value);
+    setNbOfItems(value);
+    dispatch(edit_elements_pages(value));
+    setPages({ ...page, start: 0, end: value });
+  };
+
+  useEffect(() => {
+    setMovies(movieState.slice(page.start, page.end));
+  }, [nbOfItems, movieState, page]);
+
+  const nextPage = () => {
+    let first = parseInt(nbOfItems);
+    let start = 0;
+    if (first === 0) {
+      start = first;
+    } else {
+      start = page.end;
+    }
+    let end = start + nbOfItems;
+    setPages({ ...page, start, end });
+  };
+
+  const prevPage = () => {
+    let first = parseInt(nbOfItems);
+    let start = 0;
+
+    if (first === 0) {
+      start = first;
+    } else {
+      start = page.start - first;
+    }
+    let end = page.start;
+    setPages({ ...page, start, end });
+  };
 
   return (
     <Stack>
@@ -56,21 +101,36 @@ const RowMovie = ({ filter }) => {
       >
         <span> Elements par pages : </span>
         <span>
-          <NbElement name="nbElement" id="">
-            <OptionElement value="4">4</OptionElement>
-            <OptionElement value="8">8</OptionElement>
-            <OptionElement value="12">12</OptionElement>
+          <NbElement
+            onChange={handleSelectNbElement}
+            value={nbOfItems}
+            name="nbElement"
+            id=""
+          >
+            <OptionElement value={4}>4</OptionElement>
+            <OptionElement value={8}>8</OptionElement>
+            <OptionElement value={12}>12</OptionElement>
           </NbElement>
         </span>
         <span>
           {" "}
-          <IconButton color="inherit" aria-label="Précédent">
+          <IconButton
+            disabled={page.start <= 0 ? true : false}
+            color="inherit"
+            aria-label="Précédent"
+            onClick={prevPage}
+          >
             <ArrowBackIosRounded />
           </IconButton>{" "}
         </span>
         <span>
           {" "}
-          <IconButton color="inherit" aria-label="Suivant">
+          <IconButton
+            disabled={page.end <= movieState.length ? false : true}
+            color="inherit"
+            aria-label="Suivant"
+            onClick={nextPage}
+          >
             <ArrowForwardIosRounded />
           </IconButton>{" "}
         </span>
@@ -85,7 +145,6 @@ const RowMovie = ({ filter }) => {
               category={movie.category}
               likes={movie.likes}
               dislikes={movie.dislikes}
-              className={`filter-item ${movie.category}`}
               filter={filter}
             />
           ))}

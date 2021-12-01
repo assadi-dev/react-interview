@@ -8,7 +8,8 @@ export const get_movies = () => {
     return async(dispatch) => {
         try {
             const data = await movies$;
-            dispatch({ type: GET_MOVIES, payload: data });
+            const movies = data;
+            dispatch({ type: GET_MOVIES, payload: movies });
         } catch (error) {
             console.log(error);
         }
