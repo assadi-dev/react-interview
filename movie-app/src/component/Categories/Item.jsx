@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { add_categories, delete_categories } from "../../redux/CategorieAction";
 
 const ItemContainer = styled.span`
   margin: 1rem;
@@ -15,19 +17,25 @@ const ItemContainer = styled.span`
   }
 `;
 
-const Item = ({ category, action, filterKey }) => {
+const Item = ({ category }) => {
   const [toggle, setTogle] = useState(false);
 
+  const dispatch = useDispatch();
+  const categoryState = useSelector((state) => state.CategoriesReducer);
+
   useEffect(() => {
-    if (filterKey.includes(`.${category}`)) {
+    if (categoryState.includes(category)) {
       setTogle(true);
     } else {
       setTogle(false);
     }
-  }, [toggle, filterKey, category]);
+  }, [toggle, category, categoryState]);
 
   const selected = () => {
-    action(category);
+    if (categoryState.includes(category)) {
+      return dispatch(delete_categories(category));
+    }
+    dispatch(add_categories(category));
   };
 
   return (

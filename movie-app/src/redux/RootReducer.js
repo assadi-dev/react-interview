@@ -5,6 +5,7 @@ import ElementPagesReducer from "./ElementPagesReducer";
 const RootReducer = combineReducers({
     AllMoviesReducer,
     ElementPagesReducer,
+    CategoriesReducer,
 });
 
 export default RootReducer;

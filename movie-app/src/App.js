@@ -2,7 +2,7 @@ import Navbar from "./component/Navbar";
 import Categories from "./component/Categories";
 import RowMovie from "./component/RowMovies";
 import { useEffect, useState, useRef } from "react";
-import { get_movieCategory, get_movies } from "./redux/Action";
+import { get_movies } from "./redux/Action";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
@@ -10,8 +10,6 @@ function App() {
   useEffect(() => {
     dispatch(get_movies());
   }, [dispatch]);
-
-  const [filterKey, setFilterKey] = useState([]);
 
   const store = useSelector((state) => state.AllMoviesReducer);
 
@@ -23,27 +21,12 @@ function App() {
     ),
   ];
 
-  const handleFilterKeyChange = (key) => {
-    let value = `.${key}`;
-    if (filterKey.includes(value)) {
-      return setFilterKey(filterKey.filter((v) => v !== value));
-    } else if (category.includes(key)) {
-      return setFilterKey([...filterKey, value]);
-    } else {
-      return setFilterKey([]);
-    }
-  };
-
   return (
     <div className="App">
       <Navbar />
       <main id="wrapper">
-        <Categories
-          filterKey={filterKey}
-          categories={category}
-          filter={handleFilterKeyChange}
-        />
-        <RowMovie filter={handleFilterKeyChange} />
+        <Categories categories={category} />
+        <RowMovie />
       </main>
     </div>
   );

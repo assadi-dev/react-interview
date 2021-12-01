@@ -14,12 +14,8 @@ const Container = styled.div`
   overflowy: hidden;
 `;
 
-const Categories = ({ filter, filterKey }) => {
+const Categories = () => {
   const store = useSelector((state) => state.AllMoviesReducer);
-
-  const selected = (category) => {
-    filter(category);
-  };
 
   const category = [
     ...new Set(
@@ -31,12 +27,7 @@ const Categories = ({ filter, filterKey }) => {
   return (
     <Container>
       {category.map((category, index) => (
-        <Item
-          key={index}
-          category={category}
-          filterKey={filterKey}
-          action={selected}
-        />
+        <Item key={index} category={category} />
       ))}
     </Container>
   );

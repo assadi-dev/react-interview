@@ -7,12 +7,8 @@ import {
 const initialState = [];
 export default function CategoriesReducer(state = initialState, action) {
     switch (action.type) {
-        case GET_CATEGORIES:
-            return action.payload;
-            break;
-
         case ADD_CATEGORIES:
-            return state.push(action.payload);
+            return [...state, action.payload];
             break;
 
         case DELETE_CATEGORIES:

@@ -46,25 +46,48 @@ const OptionElement = styled.option`
 
 const RowMovie = ({ filter }) => {
   const movieState = useSelector((state) => state.AllMoviesReducer);
+  const selectedCategory = useSelector((state) => state.CategoriesReducer);
   const dispatch = useDispatch();
   const [nbOfItems, setNbOfItems] = useState(4);
 
   const [movies, setMovies] = useState([]);
-  const [page, setPages] = useState({
+  const [page, setPage] = useState({
     start: 0,
     end: nbOfItems,
+    sizeItems: movieState.length,
   });
 
   const handleSelectNbElement = (e) => {
     let value = parseInt(e.target.value);
     setNbOfItems(value);
     dispatch(edit_elements_pages(value));
-    setPages({ ...page, start: 0, end: value });
+    setPage({ ...page, start: 0, end: value });
   };
 
-  useEffect(() => {
-    setMovies(movieState.slice(page.start, page.end));
-  }, [nbOfItems, movieState, page]);
+  const checkSelected = () => {
+    let array = [];
+    if (selectedCategory.length <= 0) {
+      return setMovies(movieState.slice(page.start, page.end));
+    }
+
+    for (let selected in selectedCategory) {
+      let temp = movieState.filter((m) =>
+        m.category
+          .toLowerCase()
+          .includes(selectedCategory[selected].toLowerCase())
+      );
+      array = array.concat(temp);
+    }
+
+    setMovies(array.slice(page.start, page.end));
+  };
+
+  const maxItems = () => {
+    if (selectedCategory.length <= 0) {
+      return setPage({ ...page, sizeItems: movieState.length });
+    }
+    setPage({ ...page, sizeItems: movies.length });
+  };
 
   const nextPage = () => {
     let first = parseInt(nbOfItems);
@@ -75,7 +98,7 @@ const RowMovie = ({ filter }) => {
       start = page.end;
     }
     let end = start + nbOfItems;
-    setPages({ ...page, start, end });
+    setPage({ ...page, start, end });
   };
 
   const prevPage = () => {
@@ -88,8 +111,20 @@ const RowMovie = ({ filter }) => {
       start = page.start - first;
     }
     let end = page.start;
-    setPages({ ...page, start, end });
+    setPage({ ...page, start, end });
   };
+
+  useEffect(() => {
+    maxItems();
+    checkSelected();
+  }, [
+    movieState,
+    selectedCategory,
+    nbOfItems,
+    page.start,
+    page.end,
+    page.sizeItems,
+  ]);
 
   return (
     <Stack>
@@ -126,7 +161,7 @@ const RowMovie = ({ filter }) => {
         <span>
           {" "}
           <IconButton
-            disabled={page.end <= movieState.length ? false : true}
+            disabled={page.end <= page.sizeItems ? false : true}
             color="inherit"
             aria-label="Suivant"
             onClick={nextPage}

@@ -10,6 +10,7 @@ import { IconButton } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { delete_movie, get_movieCategory } from "../../redux/Action";
 import { getLikesPourcent } from "../../utils/utils";
+import { delete_categories } from "../../redux/CategorieAction";
 
 const CardContainer = styled.div`
   border-radius: 5px;
@@ -143,7 +144,6 @@ const MovieCard = ({
 
   const deleteMovie = (id) => {
     dispatch(delete_movie(id));
-    filter([]);
   };
 
   useEffect(() => {
