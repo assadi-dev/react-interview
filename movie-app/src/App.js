@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { get_dataMovie, get_movies } from "./redux/Action";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { random_arrayIndex } from "./utils/utils";
 
 const BackGroundImage = styled.div`
   position: absolute;
@@ -19,6 +20,7 @@ const BackGroundImage = styled.div`
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
+  transition: all 0.4s ease;
   @media (max-width: 768px) {
     filter: opacity(0.1);
   }
@@ -28,22 +30,25 @@ const FramerImage = styled.div`
   position: relative;
   min-height: 100vh;
   width: 100%;
+  transition: all 0.4s ease;
   top: -20px;
 `;
 
 function App() {
   const dispatch = useDispatch();
 
-  const [backdrop, setBackdrop] = useState(
-    "https://www.themoviedb.org/t/p/w1280/scQf03Fm3jeyv4FH04qvi4fp4wh.jpg"
-  );
+  const [backdrop, setBackdrop] = useState("");
+  const store = useSelector((state) => state.AllMoviesReducer);
+  const movieData = useSelector((state) => state.InfoMovieReducer);
 
   useEffect(() => {
     dispatch(get_movies());
     dispatch(get_dataMovie());
-  }, [dispatch]);
-
-  const store = useSelector((state) => state.AllMoviesReducer);
+    if (movieData.length > 0) {
+      let index = random_arrayIndex(movieData);
+      setBackdrop(index.background);
+    }
+  }, [movieData, store, dispatch]);
 
   const category = [
     ...new Set(
