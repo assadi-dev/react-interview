@@ -14,7 +14,7 @@ const Container = styled.div`
   z-index: 25;
   overflowy: hidden;
   @media screen and (max-width: 768px) {
-    background: rgba(36, 36, 36, 1);
+    background: rgba(36, 36, 36, 0);
   }
 `;
 

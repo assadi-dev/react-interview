@@ -7,7 +7,7 @@ const NavContainer = styled.nav`
   width: 100%;
   top: 0;
   left: 0;
-  background: rgba(32, 50, 50, 0.8);
+  background: var(--gradient-bg);
   z-index: 100;
 `;
 

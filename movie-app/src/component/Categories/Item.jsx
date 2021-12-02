@@ -5,16 +5,25 @@ import { add_categories, delete_categories } from "../../redux/CategorieAction";
 
 const ItemContainer = styled.span`
   margin: 1rem;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   font-weight: bold;
   cursor: pointer;
   padding: 1rem;
-
-  background: ${(props) => props.selected && "rgba(36,36,36,0.8)"};
-  border-radius: 50px;
+  border: 2px solid var(--color-blog);
+  background: ${(props) =>
+    props.selected ? "var(--color-text)" : "var(--gradient-bg)"};
+  border-radius: 25px;
+  box-shadow: 0px 0px 8px 0px var(--color-blog);
+  color: ${(props) =>
+    props.selected ? "var(--color-bg)" : "var(--color-text)"};
+  transition: all 0.4s ease;
+  :hover {
+    transform: scale(1.1);
+  }
   @media screen and (max-width: 768px) {
-    margin: 0.2rem;
+    margin: 1rem 0.2rem;
     font-size: 0.8rem;
+    padding: 0.5rem;
   }
 `;
 

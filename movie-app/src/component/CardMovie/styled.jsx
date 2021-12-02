@@ -2,14 +2,15 @@ import styled from "styled-components";
 
 export const CardContainer = styled.div`
   border-radius: 5px;
-  width: 13rem;
+  width: 15rem;
   margin: 0.3rem;
   background: transparent;
   height: 320px;
-  color: rgba(255, 255, 255, 0.5);
+  padding: 1rem;
   overflow: hidden;
   position: relative;
   perspective: 1000px;
+
   @media (max-width: 768px) {
     width: 100%;
     height: 240px;
@@ -26,6 +27,7 @@ export const InnerCard = styled.div`
   height: 100%;
   transition: transform 0.6s;
   transform-style: preserve-3d;
+
   transform: ${(props) => props.hover && "rotateY(-180deg)"};
 `;
 
@@ -34,16 +36,17 @@ export const FaceCard = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(100, 36, 36, 0.5);
+  background: var(--color-bg);
+  box-shadow: 0px 0px 13px 0px var(--color-blog);
 `;
 
 export const BackCard = styled.div`
-  background-color: rgba(36, 36, 36, 1);
-  color: white;
+  background: var(--color-bg);
   transform: rotateY(180deg);
   backface-visibility: hidden;
   width: 100%;
   height: 100%;
+  border: 1px solid var(--color-text);
 `;
 
 export const Presentation = styled.div`
@@ -56,7 +59,6 @@ export const Presentation = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #fff;
   padding: 0.5rem;
 `;
 
@@ -74,6 +76,7 @@ export const LikeZone = styled.div`
   justify-content: space-between;
   margin-top: 1rem;
   font-size: 0.8rem;
+  color: #fff;
 `;
 
 export const RemoveBtn = styled.div`
