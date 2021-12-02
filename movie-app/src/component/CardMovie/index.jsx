@@ -109,11 +109,11 @@ const MovieCard = ({
       onMouseEnter={handleHover}
       onMouseLeave={handlExit}
     >
-      <InnerCard hover={hover}>
+      <InnerCard hover={hover} onMouseEnter={getCurrentMovie}>
         <FaceCard>
           <Poster src={btnState.poster} />
         </FaceCard>
-        <BackCard onMouseEnter={getCurrentMovie}>
+        <BackCard>
           <RemoveBtn>
             <Tooltip title="Supprimer" arrow>
               <IconButton
