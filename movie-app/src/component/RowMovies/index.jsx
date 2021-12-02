@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Stack, IconButton } from "@mui/material";
+import { Stack, IconButton, Input, Box } from "@mui/material";
 import CardMovie from "../CardMovie";
 import styled from "styled-components";
 import InfoMovie from "./InfoMovie";
@@ -33,14 +33,22 @@ const NbElement = styled.select`
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   @media (max-width: 768px) {
-    font-size: 1rem;
-
+    font-size: 0.9rem;
+    width: 60px;
+    padding: 0.5rem;
     background: rgba(36, 36, 35, 0);
   }
 `;
 
 const OptionElement = styled.option`
   color: #444;
+`;
+
+const LabelSelectElemnt = styled.label`
+  font-size: 1rem;
+  @media (max-width: 550px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const RowMovie = () => {
@@ -128,46 +136,66 @@ const RowMovie = () => {
   return (
     <Stack>
       <Stack
-        direction="row"
-        sx={{ w: "100%", my: "1.5rem", px: "1rem" }}
-        justifyContent={{ xs: "flex-end", sm: "flex-start" }}
+        direction={{ xs: "column-reverse", sm: "row" }}
+        sx={{ w: "100%", my: "1.5rem", px: { xs: "0.5rem", sm: "1rem" } }}
+        justifyContent={{ xs: "center", sm: "space-between" }}
         alignItems="center"
       >
-        <span> Elements par pages : </span>
-        <span>
-          <NbElement
-            onChange={handleSelectNbElement}
-            value={nbOfItems}
-            name="nbElement"
-            id=""
-          >
-            <OptionElement value={4}>4</OptionElement>
-            <OptionElement value={8}>8</OptionElement>
-            <OptionElement value={12}>12</OptionElement>
-          </NbElement>
-        </span>
-        <span>
-          {" "}
-          <IconButton
-            disabled={page.start <= 0 ? true : false}
-            color="inherit"
-            aria-label="Précédent"
-            onClick={prevPage}
-          >
-            <ArrowBackIosRounded />
-          </IconButton>{" "}
-        </span>
-        <span>
-          {" "}
-          <IconButton
-            disabled={page.end <= page.sizeItems ? false : true}
-            color="inherit"
-            aria-label="Suivant"
-            onClick={nextPage}
-          >
-            <ArrowForwardIosRounded />
-          </IconButton>{" "}
-        </span>
+        <div>
+          <LabelSelectElemnt htmlFor="nbElement">
+            {" "}
+            Elements par pages :
+          </LabelSelectElemnt>{" "}
+          <span>
+            <NbElement
+              onChange={handleSelectNbElement}
+              value={nbOfItems}
+              name="nbElement"
+              id="nbElement"
+            >
+              <OptionElement value={4}>4</OptionElement>
+              <OptionElement value={8}>8</OptionElement>
+              <OptionElement value={12}>12</OptionElement>
+            </NbElement>
+          </span>
+          <span>
+            {" "}
+            <IconButton
+              disabled={page.start <= 0 ? true : false}
+              color="inherit"
+              aria-label="Précédent"
+              onClick={prevPage}
+            >
+              <ArrowBackIosRounded />
+            </IconButton>{" "}
+          </span>
+          <span>
+            {" "}
+            <IconButton
+              disabled={page.end <= page.sizeItems ? false : true}
+              color="inherit"
+              aria-label="Suivant"
+              onClick={nextPage}
+            >
+              <ArrowForwardIosRounded />
+            </IconButton>{" "}
+          </span>
+        </div>
+
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 1 },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <Input
+            sx={{ color: "inherit" }}
+            placeholder="Rechercher un titre"
+            inputProps={{ "aria-label": "description" }}
+          />
+        </Box>
       </Stack>
       <Stack direction="row" sx={{ width: "100%" }}>
         <Grid className="filter-container">
