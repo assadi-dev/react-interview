@@ -42,15 +42,18 @@ function App() {
   const movieData = useSelector((state) => state.InfoMovieReducer);
 
   useEffect(() => {
-    dispatch(get_movies());
-    dispatch(get_dataMovie());
+    if (store.length === 0) {
+      dispatch(get_movies());
+      dispatch(get_dataMovie());
+    }
+
     if (movieData.current.length === 0 && movieData.collections.length) {
       let index = random_arrayIndex(movieData.collections);
       setBackdrop(index.background);
     } else {
       setBackdrop(movieData.current.background);
     }
-  }, [movieData.collections, movieData.current, store, dispatch]);
+  }, [movieData.current, dispatch]);
 
   const category = [
     ...new Set(
