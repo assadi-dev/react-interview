@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Stack,
-  IconButton,
-  FormControl,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Stack, IconButton } from "@mui/material";
 import CardMovie from "../CardMovie";
 import styled from "styled-components";
 import InfoMovie from "./InfoMovie";
