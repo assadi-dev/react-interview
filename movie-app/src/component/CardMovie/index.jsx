@@ -17,6 +17,7 @@ import {
 import { getLikesPourcent } from "../../utils/utils";
 import {
   BackCard,
+  BorderLinearProgress,
   CardContainer,
   FaceCard,
   InnerCard,
@@ -133,7 +134,12 @@ const MovieCard = ({
                 {dislikes}
               </LikesBtn>
             </LikeZone>
-            <LikesMeters likesPourcent={likesPourcent}></LikesMeters>
+            <LikesMeters
+              role="progress"
+              min={0}
+              value={likesPourcent}
+              max={100}
+            />
           </Presentation>
         </BackCard>
       </InnerCard>

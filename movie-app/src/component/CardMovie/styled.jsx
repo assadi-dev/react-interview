@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { styled as custom } from "@mui/material/styles";
 
 export const CardContainer = styled.div`
   border-radius: 5px;
@@ -99,21 +100,24 @@ export const RemoveBtn = styled.div`
 
 export const LikesBtn = styled.div``;
 
-export const LikesMeters = styled.div`
-  background: #fff;
+export const LikesMeters = styled.progress`
+  background-color: rgb(255,255,255);
   height: 3px;
   width: 100%;
-  border-radius: 5px;
+  border-radius: 50px;
+ margin-top:1rem;
   overflow: hidden;
   position: relative;
   transition: all 0.4s ease;
-  :before {
-    background: blue;
-    width: ${(props) => props.likesPourcent}%;
-    position: absolute;
-    top: 0;
-    left: 0;
+  ::-webkit-progress-bar {
+    background-color:#eee;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  }
+ 
+  ::-webkit-progress-value{
+    background-color: rgb(26, 144, 255);
     transition: all 0.4s ease;
-    content: "&";
+    border-radius: 100px;
+  }
   }
 `;
