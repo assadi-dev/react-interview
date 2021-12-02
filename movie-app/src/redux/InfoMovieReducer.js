@@ -1,11 +1,14 @@
-import { GET_DATA_MOVIES } from "./Action";
+import { GET_DATA_MOVIES, CURRENT_DATA_MOVIES } from "./Action";
 
-const initialState = [];
+const initialState = { collections: [], current: [] };
 
 export default function InfoMovieReducer(state = initialState, action) {
     switch (action.type) {
         case GET_DATA_MOVIES:
-            return action.payload;
+            return {...state, collections: action.payload };
+            break;
+        case CURRENT_DATA_MOVIES:
+            return {...state, current: action.payload };
             break;
 
         default:
