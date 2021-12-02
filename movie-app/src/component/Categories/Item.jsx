@@ -26,6 +26,12 @@ const ItemContainer = styled.span`
     margin: 1rem 0.2rem;
     font-size: 0.8rem;
     padding: 0.5rem;
+    color: var(--color-text);
+    background: var(--gradient-bg);
+    :hover {
+      color: var(--color-text);
+      background: var(--gradient-bg);
+    }
   }
 `;
 

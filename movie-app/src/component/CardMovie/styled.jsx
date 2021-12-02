@@ -13,11 +13,13 @@ export const CardContainer = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    height: 240px;
+    height: 220px;
+    padding: 0.2rem;
   }
   @media (max-width: 550px) {
-    width: 90%;
-    height: 280px;
+    width: 95%;
+    height: 250px;
+    padding: 0rem;
   }
 `;
 
@@ -27,7 +29,6 @@ export const InnerCard = styled.div`
   height: 100%;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-
   transform: ${(props) => props.hover && "rotateY(-180deg)"};
 `;
 
@@ -38,15 +39,17 @@ export const FaceCard = styled.div`
   height: 100%;
   background: var(--color-bg);
   box-shadow: 0px 0px 13px 0px var(--color-blog);
+  border: 0.5px solid var(--color-text);
 `;
 
 export const BackCard = styled.div`
-  background: var(--color-bg);
+  background: var(--gradient-bg);
   transform: rotateY(180deg);
   backface-visibility: hidden;
   width: 100%;
   height: 100%;
-  border: 1px solid var(--color-text);
+  border: 0.5px solid var(--color-text);
+  box-shadow: 0px 0px 13px 0px var(--color-blog);
 `;
 
 export const Presentation = styled.div`
