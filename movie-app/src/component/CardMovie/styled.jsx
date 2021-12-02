@@ -41,6 +41,7 @@ export const FaceCard = styled.div`
   height: 100%;
   background: var(--color-bg);
   box-shadow: 0px 0px 13px 0px var(--color-blog);
+  border-radius: 8px;
 
   overflow: hidden;
   @media (max-width: 768px) {
@@ -54,6 +55,7 @@ export const BackCard = styled.div`
   backface-visibility: hidden;
   width: 100%;
   height: 100%;
+  border-radius: 8px;
   border: 0.5px solid var(--color-text);
   box-shadow: 0px 0px 13px 0px var(--color-blog);
 `;
