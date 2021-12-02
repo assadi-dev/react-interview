@@ -10,6 +10,7 @@ import {
 import { IconButton, Tooltip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  current_dataMovie,
   delete_movie,
   get_dataMovie,
   update_dislikes,
@@ -91,10 +92,14 @@ const MovieCard = ({
 
   const infoMovieData = useSelector((state) => state.InfoMovieReducer);
 
+  const getCurrentMovie = () => {
+    dispatch(current_dataMovie(title));
+  };
+
   useEffect(() => {
     let pourcent = getLikesPourcent(likes, dislikes);
     setLikesPourcents(pourcent);
-    let infoData = get_dataMovieContent(infoMovieData, title);
+    let infoData = get_dataMovieContent(infoMovieData.collections, title);
     setBtnState({ ...btnState, poster: infoData.poster });
   }, [likes, dislikes, btnState.likes, btnState.dislikes, title, dispatch]);
 
@@ -108,7 +113,7 @@ const MovieCard = ({
         <FaceCard>
           <Poster src={btnState.poster} />
         </FaceCard>
-        <BackCard>
+        <BackCard onMouseEnter={getCurrentMovie}>
           <RemoveBtn>
             <Tooltip title="Supprimer" arrow>
               <IconButton
