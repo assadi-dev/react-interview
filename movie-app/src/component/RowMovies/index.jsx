@@ -25,9 +25,10 @@ const Grid = styled.div`
 const NbElement = styled.select`
   width: 75px;
   padding: 1rem;
-  background: var(--color-bg);
+  background: transparent;
   border: none;
-  color: #fff;
+  color: var(--color-text);
+  outline-color: var(--color-text);
   font-size: 1.2rem;
   font-weight: bold;
   margin-left: 0.5rem;
