@@ -7,3 +7,9 @@ export const getLikesPourcent = (likes, dislikes) => {
 export const get_dataMovieContent = (data, title) => {
     return data.filter((d) => d.title === title)[0];
 };
+
+export const random_arrayIndex = (array) => {
+    const number = 5;
+    console.log(array[number]);
+    return array[number];
+};
