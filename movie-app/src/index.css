@@ -28,6 +28,7 @@ body {
     width: 100%;
     background: var(--color-bg);
     color: var(--color-text);
+    background-attachment: fixed;
 }
 
 code {
@@ -37,6 +38,11 @@ code {
 #wrapper {
     max-width: 1200px;
     margin: 0 auto;
+    height: 100%;
+}
+
+.app {
+    background-color: transparent;
 }
 
 @media screen and (max-width: 768px) {
