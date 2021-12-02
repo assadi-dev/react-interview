@@ -134,7 +134,7 @@ const MovieCard = ({
                 {likes}
               </LikesBtn>
               <LikesBtn onClick={handleDisLike}>
-                <Tooltip title="J'aime pas" arrow>
+                <Tooltip title="Je n'aime pas" arrow>
                   <IconButton aria-label="Dislike" color="error">
                     {btnState.dislikes ? (
                       <ThumbDownAlt />
