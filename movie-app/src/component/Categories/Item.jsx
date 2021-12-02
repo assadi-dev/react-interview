@@ -18,20 +18,16 @@ const ItemContainer = styled.span`
     props.selected ? "var(--color-bg)" : "var(--color-text)"};
   transition: all 0.4s ease;
   transform: ${(props) => (props.selected ? "scale(1)" : "scale(0.8)")};
-  :hover {
-    color: var(--color-bg);
-    background: var(--color-text);
+  @media (min-width: 768px) {
+    :hover {
+      color: var(--color-bg);
+      background: var(--color-text);
+    }
   }
   @media screen and (max-width: 768px) {
     margin: 1rem 0.2rem;
     font-size: 0.8rem;
     padding: 0.5rem;
-    color: var(--color-text);
-    background: var(--gradient-bg);
-    :hover {
-      color: var(--color-text);
-      background: var(--gradient-bg);
-    }
   }
 `;
 

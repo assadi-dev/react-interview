@@ -41,7 +41,11 @@ export const FaceCard = styled.div`
   height: 100%;
   background: var(--color-bg);
   box-shadow: 0px 0px 13px 0px var(--color-blog);
-  border: 0.5px solid var(--color-text);
+
+  overflow: hidden;
+  @media (max-width: 768px) {
+    border: 0.5px solid var(--color-text);
+  }
 `;
 
 export const BackCard = styled.div`
@@ -121,4 +125,9 @@ export const LikesMeters = styled.progress`
     border-radius: 100px;
   }
   }
+`;
+
+export const Poster = styled.img`
+  width: 100%;
+  object-fit: contain;
 `;

@@ -18,11 +18,7 @@ const Container = styled.div`
 `;
 
 const InfoMovie = () => {
-  return (
-    <Container>
-      <p>Info movie</p>
-    </Container>
-  );
+  return <Container></Container>;
 };
 
 export default InfoMovie;

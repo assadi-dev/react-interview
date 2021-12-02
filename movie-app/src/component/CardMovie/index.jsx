@@ -8,13 +8,14 @@ import {
   DeleteOutlineOutlined,
 } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   delete_movie,
+  get_dataMovie,
   update_dislikes,
   update_likes,
 } from "../../redux/Action";
-import { getLikesPourcent } from "../../utils/utils";
+import { getLikesPourcent, get_dataMovieContent } from "../../utils/utils";
 import {
   BackCard,
   CardContainer,
@@ -23,6 +24,7 @@ import {
   LikesBtn,
   LikesMeters,
   LikeZone,
+  Poster,
   Presentation,
   RemoveBtn,
   Title,
@@ -35,6 +37,7 @@ const MovieCard = ({
   likes,
   dislikes,
   filter,
+
   ...props
 }) => {
   const dispatch = useDispatch();
@@ -43,7 +46,7 @@ const MovieCard = ({
   const [btnState, setBtnState] = useState({
     likes: false,
     dislikes: false,
-    value: 0,
+    poster: "",
   });
 
   const handleHover = () => {
@@ -86,10 +89,14 @@ const MovieCard = ({
     }
   };
 
+  const infoMovieData = useSelector((state) => state.InfoMovieReducer);
+
   useEffect(() => {
     let pourcent = getLikesPourcent(likes, dislikes);
     setLikesPourcents(pourcent);
-  }, [likes, dislikes, btnState.likes, btnState.dislikes]);
+    let infoData = get_dataMovieContent(infoMovieData, title);
+    setBtnState({ ...btnState, poster: infoData.poster });
+  }, [likes, dislikes, btnState.likes, btnState.dislikes, title, dispatch]);
 
   return (
     <CardContainer
@@ -99,7 +106,7 @@ const MovieCard = ({
     >
       <InnerCard hover={hover}>
         <FaceCard>
-          <Movie sx={{ width: "100%", fontSize: "300px" }} />
+          <Poster src={btnState.poster} />
         </FaceCard>
         <BackCard>
           <RemoveBtn>
