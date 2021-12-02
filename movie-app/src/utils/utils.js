@@ -9,7 +9,8 @@ export const get_dataMovieContent = (data, title) => {
 };
 
 export const random_arrayIndex = (array) => {
-    const number = 5;
+    const number = Math.floor(Math.random() * array.length);
+    console.log(number);
     console.log(array[number]);
     return array[number];
 };
