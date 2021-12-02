@@ -101,7 +101,15 @@ const MovieCard = ({
     setLikesPourcents(pourcent);
     let infoData = get_dataMovieContent(infoMovieData.collections, title);
     setBtnState({ ...btnState, poster: infoData.poster });
-  }, [likes, dislikes, btnState.likes, btnState.dislikes, title, dispatch]);
+  }, [
+    likes,
+    dislikes,
+    btnState.likes,
+    btnState.dislikes,
+    title,
+    infoMovieData.current,
+    dispatch,
+  ]);
 
   return (
     <CardContainer
