@@ -7,7 +7,7 @@ import {
   ThumbDownAltOutlined,
   DeleteOutlineOutlined,
 } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { useDispatch } from "react-redux";
 import {
   delete_movie,
@@ -17,7 +17,6 @@ import {
 import { getLikesPourcent } from "../../utils/utils";
 import {
   BackCard,
-  BorderLinearProgress,
   CardContainer,
   FaceCard,
   InnerCard,
@@ -104,13 +103,15 @@ const MovieCard = ({
         </FaceCard>
         <BackCard>
           <RemoveBtn>
-            <IconButton
-              aria-label="delete"
-              color="error"
-              onClick={() => deleteMovie(id)}
-            >
-              <DeleteOutlineOutlined />
-            </IconButton>
+            <Tooltip title="Supprimer" arrow>
+              <IconButton
+                aria-label="delete"
+                color="error"
+                onClick={() => deleteMovie(id)}
+              >
+                <DeleteOutlineOutlined />
+              </IconButton>
+            </Tooltip>
           </RemoveBtn>
           <Presentation>
             <Title>{title}</Title>
@@ -118,19 +119,23 @@ const MovieCard = ({
 
             <LikeZone>
               <LikesBtn onClick={handleLike}>
-                <IconButton aria-label="Like" color="success">
-                  {btnState.likes ? <ThumbUpAlt /> : <ThumbUpAltOutlined />}
-                </IconButton>
+                <Tooltip title="J'aime" arrow>
+                  <IconButton aria-label="Like" color="success">
+                    {btnState.likes ? <ThumbUpAlt /> : <ThumbUpAltOutlined />}
+                  </IconButton>
+                </Tooltip>
                 {likes}
               </LikesBtn>
               <LikesBtn onClick={handleDisLike}>
-                <IconButton aria-label="Dislike" color="error">
-                  {btnState.dislikes ? (
-                    <ThumbDownAlt />
-                  ) : (
-                    <ThumbDownAltOutlined />
-                  )}
-                </IconButton>
+                <Tooltip title="J'aime pas" arrow>
+                  <IconButton aria-label="Dislike" color="error">
+                    {btnState.dislikes ? (
+                      <ThumbDownAlt />
+                    ) : (
+                      <ThumbDownAltOutlined />
+                    )}
+                  </IconButton>
+                </Tooltip>
                 {dislikes}
               </LikesBtn>
             </LikeZone>

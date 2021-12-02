@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { styled as custom } from "@mui/material/styles";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 
 export const CardContainer = styled.div`
   border-radius: 5px;
