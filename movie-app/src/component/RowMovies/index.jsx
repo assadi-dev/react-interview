@@ -56,6 +56,7 @@ const RowMovie = () => {
   const selectedCategory = useSelector((state) => state.CategoriesReducer);
   const dispatch = useDispatch();
   const [nbOfItems, setNbOfItems] = useState(4);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState({
@@ -121,6 +122,11 @@ const RowMovie = () => {
     setPage({ ...page, start, end });
   };
 
+  const searchTitle = (e) => {
+    let value = e.target.value;
+    setSearchTerm(value);
+  };
+
   useEffect(() => {
     maxItems();
     checkSelected();
@@ -131,6 +137,7 @@ const RowMovie = () => {
     page.start,
     page.end,
     page.sizeItems,
+    searchTerm,
   ]);
 
   return (
@@ -193,22 +200,27 @@ const RowMovie = () => {
           <Input
             sx={{ color: "inherit" }}
             placeholder="Rechercher un titre"
-            inputProps={{ "aria-label": "description" }}
+            inputProps={{ "aria-label": "search movie by title" }}
+            onChange={searchTitle}
           />
         </Box>
       </Stack>
       <Stack direction="row" sx={{ width: "100%" }}>
         <Grid className="filter-container">
-          {movies.map((movie, index) => (
-            <CardMovie
-              key={index}
-              id={movie.id}
-              title={movie.title}
-              category={movie.category}
-              likes={movie.likes}
-              dislikes={movie.dislikes}
-            />
-          ))}
+          {movies
+            .filter((m) =>
+              m.title.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            .map((movie, index) => (
+              <CardMovie
+                key={index}
+                id={movie.id}
+                title={movie.title}
+                category={movie.category}
+                likes={movie.likes}
+                dislikes={movie.dislikes}
+              />
+            ))}
         </Grid>
         <InfoMovie />
       </Stack>
