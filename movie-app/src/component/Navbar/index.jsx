@@ -9,6 +9,9 @@ const NavContainer = styled.nav`
   left: 0;
   background: var(--gradient-bg);
   z-index: 100;
+  @media screen and (max-width: 768px) {
+    position: relative;
+  }
 `;
 
 const LeftCol = styled.div`
