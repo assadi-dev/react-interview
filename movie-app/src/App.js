@@ -20,7 +20,7 @@ const BackGroundImage = styled.div`
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
-  transition: all 0.4s ease;
+  transition: all 0.35s ease;
   @media (max-width: 768px) {
     filter: opacity(0.1);
   }
@@ -30,7 +30,7 @@ const FramerImage = styled.div`
   position: relative;
   min-height: 100vh;
   width: 100%;
-  transition: all 0.4s ease;
+  transition: all 0.35s ease;
   top: -20px;
 `;
 
@@ -44,11 +44,13 @@ function App() {
   useEffect(() => {
     dispatch(get_movies());
     dispatch(get_dataMovie());
-    if (movieData.length > 0) {
-      let index = random_arrayIndex(movieData);
+    if (movieData.current.length === 0 && movieData.collections.length) {
+      let index = random_arrayIndex(movieData.collections);
       setBackdrop(index.background);
+    } else {
+      setBackdrop(movieData.current.background);
     }
-  }, [movieData, store, dispatch]);
+  }, [movieData.collections, movieData.current, store, dispatch]);
 
   const category = [
     ...new Set(
