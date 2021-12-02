@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { add_categories, delete_categories } from "../../redux/CategorieAction";
 
 const ItemContainer = styled.span`
-  margin: 1rem;
+  margin: 1rem 0.5rem;
   font-size: 0.8rem;
   font-weight: bold;
   cursor: pointer;
@@ -17,8 +17,10 @@ const ItemContainer = styled.span`
   color: ${(props) =>
     props.selected ? "var(--color-bg)" : "var(--color-text)"};
   transition: all 0.4s ease;
+  transform: ${(props) => (props.selected ? "scale(1)" : "scale(0.8)")};
   :hover {
-    transform: scale(1.1);
+    color: var(--color-bg);
+    background: var(--color-text);
   }
   @media screen and (max-width: 768px) {
     margin: 1rem 0.2rem;
