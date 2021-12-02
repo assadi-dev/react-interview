@@ -190,9 +190,9 @@ const RowMovie = () => {
         </div>
 
         <Box
-          component="form"
+          component="div"
           sx={{
-            "& > :not(style)": { m: 1 },
+            "& > :not(style)": { m: 2 },
           }}
           noValidate
           autoComplete="off"
