@@ -31,7 +31,7 @@ const Grid = styled.div`
 const NbElement = styled.select`
   width: 75px;
   padding: 1rem;
-  background: rgba(36, 35, 36);
+  background: rgba(36, 35, 36, 0);
   border: none;
   color: #fff;
   font-size: 1.2rem;

@@ -7,11 +7,15 @@ const Container = styled.div`
   margin-top: 1.2rem;
   margin-bottom: 1.2rem;
   display: flex;
-  position: sticky;
+  position: relative;
   top: 0;
-  background: rgba(36, 36, 36, 1);
+  background: rgba(36, 36, 36, 0);
+  border-bottom: 2px solid #fff;
   z-index: 25;
   overflowy: hidden;
+  @media screen and (max-width: 768px) {
+    background: rgba(36, 36, 36, 1);
+  }
 `;
 
 const Categories = () => {

@@ -10,7 +10,6 @@ import {
 import { IconButton } from "@mui/material";
 import { useDispatch } from "react-redux";
 import {
-  add_likes,
   delete_movie,
   update_dislikes,
   update_likes,
@@ -24,7 +23,6 @@ import {
   LikesBtn,
   LikesMeters,
   LikeZone,
-  Overlay,
   Presentation,
   RemoveBtn,
   Title,
@@ -102,7 +100,6 @@ const MovieCard = ({
       <InnerCard hover={hover}>
         <FaceCard>
           <Movie sx={{ width: "100%", fontSize: "300px" }} />
-          <Overlay></Overlay>
         </FaceCard>
         <BackCard>
           <RemoveBtn>

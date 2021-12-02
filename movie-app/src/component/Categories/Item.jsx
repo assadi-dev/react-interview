@@ -9,7 +9,8 @@ const ItemContainer = styled.span`
   font-weight: bold;
   cursor: pointer;
   padding: 1rem;
-  background: ${(props) => props.selected && "rgba(50,50,50,0.8)"};
+
+  background: ${(props) => props.selected && "rgba(36,36,36,0.8)"};
   border-radius: 50px;
   @media screen and (max-width: 768px) {
     margin: 0.2rem;

@@ -1,5 +1,3 @@
-import { movies$ } from "../movies.js";
-export const GET_CATEGORIES = "GET_CATEGORIES";
 export const ADD_CATEGORIES = "ADD_CATEGORIES";
 export const DELETE_CATEGORIES = "DELETE_CATEGORIES";
 

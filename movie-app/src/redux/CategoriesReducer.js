@@ -1,8 +1,4 @@
-import {
-    ADD_CATEGORIES,
-    DELETE_CATEGORIES,
-    GET_CATEGORIES,
-} from "./CategorieAction";
+import { ADD_CATEGORIES, DELETE_CATEGORIES } from "./CategorieAction";
 
 const initialState = [];
 export default function CategoriesReducer(state = initialState, action) {

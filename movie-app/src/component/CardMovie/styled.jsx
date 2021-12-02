@@ -34,6 +34,7 @@ export const FaceCard = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+  background: rgba(100, 36, 36, 0.5);
 `;
 
 export const BackCard = styled.div`
@@ -43,15 +44,6 @@ export const BackCard = styled.div`
   backface-visibility: hidden;
   width: 100%;
   height: 100%;
-`;
-
-export const Overlay = styled.div`
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background: rgba(100, 36, 36, 0.5);
 `;
 
 export const Presentation = styled.div`
@@ -71,6 +63,9 @@ export const Presentation = styled.div`
 export const Title = styled.h3`
   font-weight: bold;
   font-size: 1.2rem;
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 export const LikeZone = styled.div`
@@ -96,7 +91,7 @@ export const RemoveBtn = styled.div`
   justify-content: center;
 `;
 
-export const LikesBtn = styled.span``;
+export const LikesBtn = styled.div``;
 
 export const LikesMeters = styled.div`
   background: #fff;
