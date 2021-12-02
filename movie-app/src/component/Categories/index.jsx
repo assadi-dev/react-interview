@@ -10,7 +10,7 @@ const Container = styled.div`
   position: relative;
   top: 0;
   background: rgba(36, 36, 36, 0);
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid var(--color-text);
   z-index: 25;
   overflowy: hidden;
   @media screen and (max-width: 768px) {
