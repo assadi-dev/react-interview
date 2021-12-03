@@ -165,7 +165,7 @@ const RowMovie = () => {
         justifyContent={{ xs: "center", sm: "space-between" }}
         alignItems="center"
       >
-        <div>
+        <Box sx={{ my: "1rem" }}>
           <LabelSelectElemnt htmlFor="nbElement">
             {" "}
             Elements par pages :
@@ -204,9 +204,9 @@ const RowMovie = () => {
               <ArrowForwardIosRounded />
             </IconButton>{" "}
           </span>
-        </div>
+        </Box>
 
-        <Box>
+        <Box sx={{ my: "1rem" }}>
           <LabelSelectElemnt htmlFor="orderMovies">
             {" "}
             Trier par ordre :
@@ -223,7 +223,7 @@ const RowMovie = () => {
         <Box
           component="div"
           sx={{
-            "& > :not(style)": { m: 2 },
+            "& > :not(style)": { my: "1rem" },
           }}
           noValidate
           autoComplete="off"
