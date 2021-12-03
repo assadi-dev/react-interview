@@ -209,7 +209,7 @@ const RowMovie = () => {
         <Box>
           <LabelSelectElemnt htmlFor="orderMovies">
             {" "}
-            Trier par :
+            Trier par ordre :
           </LabelSelectElemnt>
           <OrderSelected onChange={selectOrder} id="orderMovies">
             <OptionElement selected value="*">
