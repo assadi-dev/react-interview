@@ -12,3 +12,14 @@ export const random_arrayIndex = (array) => {
     const number = Math.floor(Math.random() * array.length);
     return array[number];
 };
+
+export const sortData = (mode, data, key) => {
+    const sortedData = [...data];
+    if (mode === "*" || mode === undefined) {
+        return sortedData;
+    }
+    if (mode === "asc") {
+        return sortedData.sort((a, b) => (a[key] > b[key] ? 1 : -1));
+    }
+    return sortedData.sort((a, b) => (a[key] > b[key] ? -1 : 1));
+};

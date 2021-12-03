@@ -9,6 +9,7 @@ import {
   ArrowForwardIosRounded,
 } from "@mui/icons-material";
 import { edit_elements_pages } from "../../redux/ElementsPageAction";
+import { sortData } from "../../utils/utils";
 
 const Grid = styled.div`
   display: grid;
@@ -23,14 +24,12 @@ const Grid = styled.div`
 `;
 
 const NbElement = styled.select`
-  width: 75px;
   padding: 1rem;
   background: transparent;
   border: none;
   color: var(--color-text);
   outline-color: var(--color-text);
   font-size: 1.2rem;
-  font-weight: bold;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   @media (max-width: 768px) {
@@ -43,6 +42,16 @@ const NbElement = styled.select`
 
 const OptionElement = styled.option`
   color: #444;
+  padding: 1rem;
+`;
+
+const OrderSelected = styled.select`
+  padding: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  outline-color: var(--color-text);
+  font-size: 1rem;
 `;
 
 const LabelSelectElemnt = styled.label`
@@ -58,6 +67,7 @@ const RowMovie = () => {
   const dispatch = useDispatch();
   const [nbOfItems, setNbOfItems] = useState(4);
   const [searchTerm, setSearchTerm] = useState("");
+  const [order, setOrder] = useState("*");
 
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState({
@@ -128,6 +138,11 @@ const RowMovie = () => {
     setSearchTerm(value);
   };
 
+  const selectOrder = (e) => {
+    let value = e.target.value;
+    setOrder(value);
+  };
+
   useEffect(() => {
     maxItems();
     checkSelected();
@@ -139,6 +154,7 @@ const RowMovie = () => {
     page.end,
     page.sizeItems,
     searchTerm,
+    order,
   ]);
 
   return (
@@ -190,6 +206,20 @@ const RowMovie = () => {
           </span>
         </div>
 
+        <Box>
+          <LabelSelectElemnt htmlFor="orderMovies">
+            {" "}
+            Trier par :
+          </LabelSelectElemnt>
+          <OrderSelected onChange={selectOrder} id="orderMovies">
+            <OptionElement selected value="*">
+              Defaut
+            </OptionElement>
+            <OptionElement value="asc">Croissant</OptionElement>
+            <OptionElement value="desc">Décroissant</OptionElement>
+          </OrderSelected>
+        </Box>
+
         <Box
           component="div"
           sx={{
@@ -208,7 +238,7 @@ const RowMovie = () => {
       </Stack>
       <Stack direction="row" sx={{ width: "100%" }}>
         <Grid className="filter-container">
-          {movies
+          {sortData(order, movies, "title")
             .filter((m) =>
               m.title.toLowerCase().includes(searchTerm.toLowerCase())
             )
