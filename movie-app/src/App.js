@@ -47,13 +47,13 @@ function App() {
       dispatch(get_dataMovie());
     }
 
-    if (movieData.current.length === 0 && movieData.collections.length) {
+    if (movieData.current.length === 0 && movieData.collections.length > 0) {
       let index = random_arrayIndex(movieData.collections);
       setBackdrop(index.background);
     } else {
       setBackdrop(movieData.current.background);
     }
-  }, [movieData.current, dispatch]);
+  }, [dispatch, movieData.current, movieData.collections]);
 
   const category = [
     ...new Set(
