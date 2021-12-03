@@ -105,7 +105,7 @@ const RowMovie = () => {
     if (selectedCategory.length <= 0) {
       return setPage({ ...page, sizeItems: movieState.length });
     }
-    setPage({ ...page, sizeItems: movies.length });
+    return setPage({ ...page, sizeItems: movies.length });
   };
 
   const nextPage = () => {
@@ -144,6 +144,14 @@ const RowMovie = () => {
   };
 
   useEffect(() => {
+    if (searchTerm) {
+      let data = movieState.filter((m) =>
+        m.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      setMovies(data.slice(page.start, page.end));
+      return setPage({ ...page, sizeItems: data.length });
+    }
     maxItems();
     checkSelected();
   }, [
@@ -165,7 +173,7 @@ const RowMovie = () => {
         justifyContent={{ xs: "center", sm: "space-between" }}
         alignItems="center"
       >
-        <Box sx={{ my: "1rem" }}>
+        <Box sx={{ my: "0.5rem" }}>
           <LabelSelectElemnt htmlFor="nbElement">
             {" "}
             Elements par pages :
@@ -196,7 +204,7 @@ const RowMovie = () => {
           <span>
             {" "}
             <IconButton
-              disabled={page.end <= page.sizeItems ? false : true}
+              disabled={page.end >= page.sizeItems ? true : false}
               color="inherit"
               aria-label="Suivant"
               onClick={nextPage}
@@ -206,7 +214,7 @@ const RowMovie = () => {
           </span>
         </Box>
 
-        <Box sx={{ my: "1rem" }}>
+        <Box sx={{ my: "0.5rem" }}>
           <LabelSelectElemnt htmlFor="orderMovies">
             {" "}
             Trier par ordre :
@@ -223,7 +231,7 @@ const RowMovie = () => {
         <Box
           component="div"
           sx={{
-            "& > :not(style)": { my: "1rem" },
+            "& > :not(style)": { my: "0.5rem" },
           }}
           noValidate
           autoComplete="off"
@@ -238,20 +246,16 @@ const RowMovie = () => {
       </Stack>
       <Stack direction="row" sx={{ width: "100%" }}>
         <Grid className="filter-container">
-          {sortData(order, movies, "title")
-            .filter((m) =>
-              m.title.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-            .map((movie, index) => (
-              <CardMovie
-                key={index}
-                id={movie.id}
-                title={movie.title}
-                category={movie.category}
-                likes={movie.likes}
-                dislikes={movie.dislikes}
-              />
-            ))}
+          {sortData(order, movies, "title").map((movie, index) => (
+            <CardMovie
+              key={index}
+              id={movie.id}
+              title={movie.title}
+              category={movie.category}
+              likes={movie.likes}
+              dislikes={movie.dislikes}
+            />
+          ))}
         </Grid>
         <InfoMovie />
       </Stack>
