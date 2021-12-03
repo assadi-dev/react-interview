@@ -6,6 +6,7 @@ import Item from "./Item";
 const Container = styled.div`
   margin-top: 1.2rem;
   margin-bottom: 1.2rem;
+
   display: flex;
   position: relative;
   top: 0;

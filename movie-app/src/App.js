@@ -13,6 +13,7 @@ const BackGroundImage = styled.div`
   left: 0;
   bottom: 0;
   width: 100%;
+
   background-attachment: fixed;
   filter: blur(0px) opacity(0.15);
   z-index: -5;

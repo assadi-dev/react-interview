@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const NavContainer = styled.nav`
-  padding: 1.5rem 2.5rem;
+  padding: 1rem 2.5rem;
   position: sticky;
   width: 100%;
   top: 0;
@@ -15,7 +15,7 @@ const NavContainer = styled.nav`
 `;
 
 const LeftCol = styled.div`
-  padding: 1rem;
+  padding: 0.5rem;
   flex: 0.25%;
 `;
 
