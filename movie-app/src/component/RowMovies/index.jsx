@@ -145,9 +145,9 @@ const RowMovie = () => {
 
   useEffect(() => {
     if (searchTerm) {
-      let data = movieState.filter((m) =>
-        m.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      let data = movieState
+        .filter((m) => m.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        .filter((m) => m.category.includes(selectedCategory));
 
       setMovies(data.slice(page.start, page.end));
       return setPage({ ...page, sizeItems: data.length });
