@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Stack, IconButton, Input, Box } from "@mui/material";
 import CardMovie from "../CardMovie";
 import styled from "styled-components";
@@ -10,13 +10,15 @@ import {
 } from "@mui/icons-material";
 import { edit_elements_pages } from "../../redux/ElementsPageAction";
 import { sortData } from "../../utils/utils";
+import { gsap } from "gsap";
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr;
   width: 100%;
-
+  overflow: hidden;
+  justify-content: center;
   @media screen and (max-width: 550px) {
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
@@ -143,6 +145,26 @@ const RowMovie = () => {
     setOrder(value);
   };
 
+  const el = useRef();
+  const q = gsap.utils.selector(el);
+
+  useEffect(() => {
+    gsap.fromTo(
+      q(".box-movies"),
+      { opacity: 0, scale: 1.2, x: -100 },
+      { opacity: 1, scale: 1, x: 0, stagger: 0.33, duration: 1 }
+    );
+  }, [
+    movies.length,
+    selectedCategory,
+    nbOfItems,
+    page.start,
+    page.end,
+    page.sizeItems,
+    searchTerm,
+    order,
+  ]);
+
   useEffect(() => {
     if (searchTerm) {
       let data = movieState
@@ -150,6 +172,7 @@ const RowMovie = () => {
         .filter((m) => m.category.includes(selectedCategory));
 
       setMovies(data.slice(page.start, page.end));
+
       return setPage({ ...page, sizeItems: data.length });
     }
     maxItems();
@@ -245,7 +268,7 @@ const RowMovie = () => {
         </Box>
       </Stack>
       <Stack direction="row" sx={{ width: "100%" }}>
-        <Grid className="filter-container">
+        <Grid className="filter-container" ref={el}>
           {sortData(order, movies, "title").map((movie, index) => (
             <CardMovie
               key={index}
@@ -254,10 +277,10 @@ const RowMovie = () => {
               category={movie.category}
               likes={movie.likes}
               dislikes={movie.dislikes}
+              className="box-movies"
             />
           ))}
         </Grid>
-        <InfoMovie />
       </Stack>
     </Stack>
   );

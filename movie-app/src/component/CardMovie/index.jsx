@@ -91,6 +91,7 @@ const MovieCard = ({
   };
 
   const infoMovieData = useSelector((state) => state.InfoMovieReducer);
+  const movieState = useSelector((state) => state.AllMoviesReducer);
 
   const getCurrentMovie = () => {
     dispatch(current_dataMovie(title));
