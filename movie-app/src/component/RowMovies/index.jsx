@@ -149,11 +149,15 @@ const RowMovie = () => {
   const q = gsap.utils.selector(el);
 
   useEffect(() => {
-    gsap.fromTo(
+    const animation = gsap.fromTo(
       q(".box-movies"),
       { opacity: 0, scale: 1.2, x: -100 },
       { opacity: 1, scale: 1, x: 0, stagger: 0.1, duration: 1 }
     );
+
+    return () => {
+      animation.kill();
+    };
   }, [
     movies.length,
     selectedCategory,
